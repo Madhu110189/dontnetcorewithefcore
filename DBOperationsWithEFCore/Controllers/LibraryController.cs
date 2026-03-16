@@ -32,5 +32,19 @@ namespace DBOperationsWithEFCore.Controllers
                                 select  languages).ToListAsync();
             return Ok(result);
         }
+
+        [HttpGet("currency/{id:int}")]
+        public async Task<IActionResult> GetCurrencyByID([FromRoute] int id)
+        {
+            var result = await _context.Currency.FindAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("currency/{name}")]
+        public async Task<IActionResult> GetCurrencyByName([FromRoute] string name)
+        {
+            var result = await _context.Currency.FirstOrDefaultAsync(x=> x.Title==name);
+            return Ok(result);
+        }
     }
 }
