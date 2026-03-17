@@ -60,5 +60,21 @@ namespace DBOperationsWithEFCore.Controllers
                 .ToListAsync();
             return Ok(result);
         }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllCurrencyByIds()
+        {
+            var ids = new List<int> { 1,2,3};
+            var result = await _context.Currency.Where
+                (x => ids.Contains(x.Id)).ToListAsync();
+            return Ok(result);
+        }
+
+        [HttpPost("all")]
+        public async Task<IActionResult> getAllcurrencybyidsfrombody([FromBody] List<int> ids)
+        {
+            var result = await _context.Currency.Where(x => ids.Contains(x.Id)).ToListAsync();
+            return Ok(result);
+        }
     }
 }
