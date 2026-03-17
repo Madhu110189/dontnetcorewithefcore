@@ -76,5 +76,24 @@ namespace DBOperationsWithEFCore.Controllers
             var result = await _context.Currency.Where(x => ids.Contains(x.Id)).ToListAsync();
             return Ok(result);
         }
+
+        [HttpGet("currency/few")]
+        public async Task<IActionResult> getFewColumnsOfCurrency()
+        {
+            //var result = await _context.Currency
+            //    .Select(x=> new Currency { 
+            //        Id = x.Id,
+            //        Title = x.Title,
+            //    })
+            //    .ToListAsync();
+
+            var result = await (from currencies in _context.Currency
+                                select new
+                                {
+                                    ID = currencies.Id,
+                                    Name = currencies.Title,
+                                }).ToListAsync();
+            return Ok(result);
+        }
     }
 }
