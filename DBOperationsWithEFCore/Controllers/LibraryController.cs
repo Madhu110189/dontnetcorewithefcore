@@ -46,5 +46,11 @@ namespace DBOperationsWithEFCore.Controllers
             var result = await _context.Currency.FirstOrDefaultAsync(x=> x.Title==name);
             return Ok(result);
         }
+        [HttpGet("currency/{name}/desc")]
+        public async Task<IActionResult> GetCurrencyByNameAndDesc([FromRoute] string name, [FromQuery] string desc)
+        {
+            var result= await _context.Currency.FirstOrDefaultAsync(x=> x.Title==name && (string.IsNullOrEmpty(x.Description) || x.Description==desc));
+            return Ok (result);
+        }
     }
 }
