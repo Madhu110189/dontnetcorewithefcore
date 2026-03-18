@@ -22,5 +22,14 @@ namespace DBOperationsWithEFCore.Controllers
 
             return Ok(bookmodel);   
         }
+
+        [HttpPost("AddManyBooks")]
+        public async Task<IActionResult> AddMultipleBooks([FromBody] List<Book> booksmodel)
+        {
+            appDb.Books.AddRange(booksmodel);
+            await appDb.SaveChangesAsync();
+
+            return Ok(booksmodel);
+        }
     }
 }
