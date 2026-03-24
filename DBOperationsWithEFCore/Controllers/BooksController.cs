@@ -81,5 +81,20 @@ namespace DBOperationsWithEFCore.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("Bulkdelete")]
+        public async Task<IActionResult> deleteFromBooksInBulk()
+        {
+            #region delete multiple records by multiple hits in db
+            //var books = await appDb.Books.Where(x => x.Id < 3).ToListAsync();
+            //appDb.Books.RemoveRange(books);
+            //await appDb.SaveChangesAsync();
+            #endregion
+
+            #region delete multiple records by single hit in db
+            var books = await appDb.Books.Where(x=> x.Id >= 4).ExecuteDeleteAsync();
+            #endregion
+            return Ok();
+        }
     }
 }
