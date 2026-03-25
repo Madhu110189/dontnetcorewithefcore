@@ -96,5 +96,19 @@ namespace DBOperationsWithEFCore.Controllers
             #endregion
             return Ok();
         }
+
+        [HttpGet("GetAllBooks")]
+        public async Task<IActionResult> GetAllBooks()
+        {
+            var books = await appDb.Books.AsNoTracking().Select(x => new
+            {
+                Id=x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Author= x.Author!=null ? x.Author.Name : "NA",
+                languga = x.Language!=null ? x.Language.Title : "NA",
+            }).ToListAsync();
+            return Ok(books);
+        }
     }
 }
